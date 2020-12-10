@@ -1,9 +1,23 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      docker: 18
+
   build:
     commands:
       - pcs_iac_repo_scan
+      - echo Build started on `date`
+      - echo Building the Docker image ..$prisma_cloud_scan_image
+      - docker pull $prisma_cloud_scan_image
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - curl -k -u ${prisma_cloud_compute_username}:${prisma_cloud_compute_password} --output ./twistcli ${prisma_cloud_compute_url}/api/v1/util/twistcli
+      - chmod +x ./twistcli
+      - ./twistcli images scan --details --address $prisma_cloud_compute_url -u $prisma_cloud_compute_username -p $prisma_cloud_compute_password $prisma_cloud_scan_image
+  
 reports:
   iac-reports:
     files:
