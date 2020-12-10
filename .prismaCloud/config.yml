@@ -1,11 +1,6 @@
 template_type: TF
 template_version: 0.12
 
-template_parameters:
-variables:
- key1: values1
- key2: values2
-
 tags:
 - Org:Engineering
 - Team:Shift_LeftQAsprint25
