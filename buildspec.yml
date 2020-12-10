@@ -1,27 +1,35 @@
 version: 0.2
-
+ 
+# In this example, we're using environment variables
+# to store the username and password of our Prisma Cloud Compute CI user account
+# and the URL to our console
+ 
+# prisma_cloud_compute_username:  The Prisma Cloud Compute user with the CI User role
+# prisma_cloud_compute_password:  The password for this user account
+# prisma_cloud_compute_url:  The base URL for the console -- http://console.<my_company>.com:8083 -- without a trailing /
+# prisma_cloud_scan_image: The image name to scan
 phases:
   install:
     runtime-versions:
       docker: 18
-
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image ..$prisma_cloud_scan_image
-      - echo Building the Docker image ..$prisma_cloud_scan_image
-      - echo Building the Docker image ..$prisma_cloud_compute_password
+      - echo Building the Docker image..$prisma_cloud_scan_image 
       - docker pull $prisma_cloud_scan_image
-      - pcs_iac_repo_scan
   post_build:
     commands:
       - echo Build completed on `date`
       - curl -k -u ${prisma_cloud_compute_username}:${prisma_cloud_compute_password} --output ./twistcli ${prisma_cloud_compute_url}/api/v1/util/twistcli
       - chmod +x ./twistcli
+ 
+      # Run the scan with twistcli, providing detailed results in CodeBuild and
+      # pushing the results to the Prisma Cloud Compute console.
+      # --details returns all vulnerabilities and compliance issues rather than just summaries.
+      # -address points to our Prisma Cloud Compute console
+      # -u and -p provide credentials for the console.  These creds only need the CI User role.
+      # Finally, we provide the name of the image we built with 'docker build', above.
+ 
       - ./twistcli images scan --details --address $prisma_cloud_compute_url -u $prisma_cloud_compute_username -p $prisma_cloud_compute_password $prisma_cloud_scan_image
-  
-reports:
-  iac-reports:
-    files:
-      - report/iac_scan/results.xml
-    file-format: JUNITXML
+       
+      # See twistcli documentation for more details.`
