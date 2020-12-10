@@ -10,6 +10,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image ..$prisma_cloud_scan_image
       - echo Building the Docker image ..$prisma_cloud_scan_image
+      - echo Building the Docker image ..$prisma_cloud_compute_password
       - docker pull $prisma_cloud_scan_image
       - pcs_iac_repo_scan
   post_build:
