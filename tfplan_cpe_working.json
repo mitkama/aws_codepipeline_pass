@@ -1,0 +1,758 @@
+{
+    "format_version": "0.1",
+    "terraform_version": "0.12.24",
+    "planned_values": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.data.google_compute_subnetwork.gke_subnetwork[0]",
+                    "mode": "data",
+                    "type": "google_compute_subnetwork",
+                    "name": "gke_subnetwork",
+                    "index": 0,
+                    "provider_name": "registry.terraform.io/hashicorp/google",
+                    "schema_version": 0,
+                    "values": {
+                        "project": "cnp-standalone-eghe",
+                        "region": "europe-west4"
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_compute_firewall.intra_egress[0]",
+                    "mode": "managed",
+                    "type": "google_compute_firewall",
+                    "name": "intra_egress",
+                    "index": 0,
+                    "provider_name": "registry.terraform.io/hashicorp/google",
+                    "schema_version": 1,
+                    "values": {
+                        "allow": [
+                            {
+                                "ports": [],
+                                "protocol": "ah"
+                            },
+                            {
+                                "ports": [],
+                                "protocol": "esp"
+                            },
+                            {
+                                "ports": [],
+                                "protocol": "icmp"
+                            },
+                            {
+                                "ports": [],
+                                "protocol": "sctp"
+                            },
+                            {
+                                "ports": [],
+                                "protocol": "tcp"
+                            },
+                            {
+                                "ports": [],
+                                "protocol": "udp"
+                            }
+                        ],
+                        "deny": [],
+                        "description": "Managed by terraform gke module: Allow pods to communicate with each other and the master",
+                        "direction": "EGRESS",
+                        "disabled": null,
+                        "log_config": [],
+                        "name": "gke-cluster01-intra-cluster-egress",
+                        "priority": 1000,
+                        "project": "cnp-standalone-eghe",
+                        "source_service_accounts": null,
+                        "source_tags": null,
+                        "target_service_accounts": null,
+                        "target_tags": [
+                            "gke-cluster01"
+                        ],
+                        "timeouts": null
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_compute_firewall.master_webhooks[0]",
+                    "mode": "managed",
+                    "type": "google_compute_firewall",
+                    "name": "master_webhooks",
+                    "index": 0,
+                    "provider_name": "registry.terraform.io/hashicorp/google",
+                    "schema_version": 1,
+                    "values": {
+                        "allow": [
+                            {
+                                "ports": [
+                                    "443",
+                                    "10250",
+                                    "15017"
+                                ],
+                                "protocol": "tcp"
+                            }
+                        ],
+                        "deny": [],
+                        "description": "Managed by terraform gke module: Allow master to hit pods for admission controllers/webhooks",
+                        "direction": "INGRESS",
+                        "disabled": null,
+                        "log_config": [],
+                        "name": "gke-cluster01-webhooks",
+                        "priority": 1000,
+                        "project": "cnp-standalone-eghe",
+                        "source_ranges": [
+                            "10.253.0.0/28"
+                        ],
+                        "source_service_accounts": null,
+                        "source_tags": null,
+                        "target_service_accounts": null,
+                        "target_tags": [
+                            "gke-cluster01"
+                        ],
+                        "timeouts": null
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_container_cluster.primary",
+                    "mode": "managed",
+                    "type": "google_container_cluster",
+                    "name": "primary",
+                    "provider_name": "registry.terraform.io/hashicorp/google-beta",
+                    "schema_version": 1,
+                    "values": {
+                        "addons_config": [
+                            {
+                                "config_connector_config": [
+                                    {
+                                        "enabled": false
+                                    }
+                                ],
+                                "dns_cache_config": [
+                                    {
+                                        "enabled": false
+                                    }
+                                ],
+                                "gce_persistent_disk_csi_driver_config": [
+                                    {
+                                        "enabled": false
+                                    }
+                                ],
+                                "horizontal_pod_autoscaling": [
+                                    {
+                                        "disabled": false
+                                    }
+                                ],
+                                "http_load_balancing": [
+                                    {
+                                        "disabled": true
+                                    }
+                                ],
+                                "istio_config": [
+                                    {
+                                        "auth": "AUTH_MUTUAL_TLS",
+                                        "disabled": false
+                                    }
+                                ],
+                                "kalm_config": [
+                                    {
+                                        "enabled": false
+                                    }
+                                ],
+                                "network_policy_config": [
+                                    {
+                                        "disabled": false
+                                    }
+                                ]
+                            }
+                        ],
+                        "authenticator_groups_config": [
+                            {
+                                "security_group": "gke-security-groups@decathlon.net"
+                            }
+                        ],
+                        "cluster_autoscaling": [
+                            {
+                                "autoscaling_profile": "BALANCED",
+                                "enabled": false,
+                                "resource_limits": []
+                            }
+                        ],
+                        "database_encryption": [
+                            {
+                                "key_name": "",
+                                "state": "DECRYPTED"
+                            }
+                        ],
+                        "default_max_pods_per_node": 110,
+                        "default_snat_status": [
+                            {
+                                "disabled": false
+                            }
+                        ],
+                        "description": "",
+                        "enable_binary_authorization": false,
+                        "enable_intranode_visibility": false,
+                        "enable_kubernetes_alpha": false,
+                        "enable_legacy_abac": false,
+                        "enable_shielded_nodes": true,
+                        "enable_tpu": false,
+                        "initial_node_count": null,
+                        "ip_allocation_policy": [
+                            {
+                                "cluster_secondary_range_name": "k8s-services-pods",
+                                "services_secondary_range_name": "k8s-services-range"
+                            }
+                        ],
+                        "location": "europe-west4",
+                        "logging_service": "logging.googleapis.com/kubernetes",
+                        "maintenance_policy": [
+                            {
+                                "daily_maintenance_window": [
+                                    {
+                                        "start_time": "05:00"
+                                    }
+                                ],
+                                "recurring_window": []
+                            }
+                        ],
+                        "master_auth": [
+                            {
+                                "client_certificate_config": [
+                                    {
+                                        "issue_client_certificate": false
+                                    }
+                                ],
+                                "password": "",
+                                "username": ""
+                            }
+                        ],
+                        "master_authorized_networks_config": [],
+                        "min_master_version": null,
+                        "monitoring_service": "monitoring.googleapis.com/kubernetes",
+                        "name": "cluster01",
+                        "network_policy": [
+                            {
+                                "enabled": true,
+                                "provider": "CALICO"
+                            }
+                        ],
+                        "networking_mode": "VPC_NATIVE",
+                        "node_pool": [
+                            {
+                                "autoscaling": [],
+                                "initial_node_count": 0,
+                                "name": "default-pool",
+                                "node_config": [
+                                    {
+                                        "boot_disk_kms_key": null,
+                                        "kubelet_config": [],
+                                        "linux_node_config": [],
+                                        "min_cpu_platform": null,
+                                        "preemptible": false,
+                                        "sandbox_config": [],
+                                        "tags": null,
+                                        "workload_metadata_config": [
+                                            {
+                                                "node_metadata": "GKE_METADATA_SERVER"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "pod_security_policy_config": [],
+                        "private_cluster_config": [
+                            {
+                                "enable_private_endpoint": null,
+                                "enable_private_nodes": true,
+                                "master_global_access_config": [
+                                    {
+                                        "enabled": true
+                                    }
+                                ],
+                                "master_ipv4_cidr_block": "10.253.0.0/28"
+                            }
+                        ],
+                        "project": "cnp-standalone-eghe",
+                        "release_channel": [
+                            {
+                                "channel": "REGULAR"
+                            }
+                        ],
+                        "remove_default_node_pool": true,
+                        "resource_labels": {
+                            "application": "monapp",
+                            "cluster-name": "cluster01",
+                            "project": "cnp-standalone-eghe",
+                            "region": "europe-west4"
+                        },
+                        "resource_usage_export_config": [],
+                        "timeouts": {
+                            "create": "45m",
+                            "delete": "45m",
+                            "read": null,
+                            "update": "45m"
+                        },
+                        "vertical_pod_autoscaling": [
+                            {
+                                "enabled": true
+                            }
+                        ],
+                        "workload_identity_config": [
+                            {
+                                "identity_namespace": "cnp-standalone-eghe.svc.id.goog"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_container_node_pool.pools[\"pool-01\"]",
+                    "mode": "managed",
+                    "type": "google_container_node_pool",
+                    "name": "pools",
+                    "index": "pool-01",
+                    "provider_name": "registry.terraform.io/hashicorp/google-beta",
+                    "schema_version": 1,
+                    "values": {
+                        "autoscaling": [
+                            {
+                                "max_node_count": 2,
+                                "min_node_count": 1
+                            }
+                        ],
+                        "cluster": "cluster01",
+                        "initial_node_count": 1,
+                        "location": "europe-west4",
+                        "management": [
+                            {
+                                "auto_repair": true,
+                                "auto_upgrade": true
+                            }
+                        ],
+                        "name": "pool-01",
+                        "node_config": [
+                            {
+                                "boot_disk_kms_key": "",
+                                "disk_size_gb": 100,
+                                "disk_type": "pd-standard",
+                                "guest_accelerator": [],
+                                "image_type": "CAS",
+                                "kubelet_config": [],
+                                "labels": {
+                                    "cluster_name": "cluster01",
+                                    "node_pool": "pool-01"
+                                },
+                                "linux_node_config": [],
+                                "local_ssd_count": 0,
+                                "machine_type": "n1-standard-4",
+                                "metadata": {
+                                    "cluster_name": "cluster01",
+                                    "disable-legacy-endpoints": "true",
+                                    "node_pool": "pool-01"
+                                },
+                                "min_cpu_platform": null,
+                                "oauth_scopes": [
+                                    "https://www.googleapis.com/auth/cloud-platform"
+                                ],
+                                "preemptible": false,
+                                "sandbox_config": [],
+                                "shielded_instance_config": [
+                                    {
+                                        "enable_integrity_monitoring": true,
+                                        "enable_secure_boot": false
+                                    }
+                                ],
+                                "tags": [
+                                    "gke-cluster01",
+                                    "gke-cluster01-pool-01"
+                                ],
+                                "taint": [
+                                    {
+                                        "effect": "PREFER_NO_SCHEDULE",
+                                        "key": "pool-01",
+                                        "value": "true"
+                                    }
+                                ],
+                                "workload_metadata_config": [
+                                    {
+                                        "node_metadata": "GKE_METADATA_SERVER"
+                                    }
+                                ]
+                            }
+                        ],
+                        "project": "cnp-standalone-eghe",
+                        "timeouts": {
+                            "create": "45m",
+                            "delete": "45m",
+                            "update": "45m"
+                        },
+                        "upgrade_settings": [
+                            {
+                                "max_surge": 1,
+                                "max_unavailable": 0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_container_node_pool.pools[\"pool-02\"]",
+                    "mode": "managed",
+                    "type": "google_container_node_pool",
+                    "name": "pools",
+                    "index": "pool-02",
+                    "provider_name": "registry.terraform.io/hashicorp/google-beta",
+                    "schema_version": 1,
+                    "values": {
+                        "autoscaling": [
+                            {
+                                "max_node_count": 5,
+                                "min_node_count": 0
+                            }
+                        ],
+                        "cluster": "cluster01",
+                        "initial_node_count": 0,
+                        "location": "europe-west4",
+                        "management": [
+                            {
+                                "auto_repair": true,
+                                "auto_upgrade": true
+                            }
+                        ],
+                        "name": "pool-02",
+                        "node_config": [
+                            {
+                                "boot_disk_kms_key": "",
+                                "disk_size_gb": 100,
+                                "disk_type": "pd-standard",
+                                "guest_accelerator": [],
+                                "image_type": "CAS",
+                                "kubelet_config": [],
+                                "labels": {
+                                    "cluster_name": "cluster01",
+                                    "node_pool": "pool-02"
+                                },
+                                "linux_node_config": [],
+                                "local_ssd_count": 0,
+                                "machine_type": "n1-standard-4",
+                                "metadata": {
+                                    "cluster_name": "cluster01",
+                                    "disable-legacy-endpoints": "true",
+                                    "node_pool": "pool-02"
+                                },
+                                "min_cpu_platform": null,
+                                "oauth_scopes": [
+                                    "https://www.googleapis.com/auth/cloud-platform"
+                                ],
+                                "preemptible": false,
+                                "sandbox_config": [],
+                                "shielded_instance_config": [
+                                    {
+                                        "enable_integrity_monitoring": true,
+                                        "enable_secure_boot": false
+                                    }
+                                ],
+                                "tags": [
+                                    "gke-cluster01",
+                                    "gke-cluster01-pool-02"
+                                ],
+                                "workload_metadata_config": [
+                                    {
+                                        "node_metadata": "GKE_METADATA_SERVER"
+                                    }
+                                ]
+                            }
+                        ],
+                        "project": "cnp-standalone-eghe",
+                        "timeouts": {
+                            "create": "45m",
+                            "delete": "45m",
+                            "update": "45m"
+                        },
+                        "upgrade_settings": [
+                            {
+                                "max_surge": 1,
+                                "max_unavailable": 0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_project_iam_member.cluster_service_account-log_writer[0]",
+                    "mode": "managed",
+                    "type": "google_project_iam_member",
+                    "name": "cluster_service_account-log_writer",
+                    "index": 0,
+                    "provider_name": "registry.terraform.io/hashicorp/google",
+                    "schema_version": 0,
+                    "values": {
+                        "condition": [],
+                        "project": "cnp-standalone-eghe",
+                        "role": "roles/logging.logWriter"
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_project_iam_member.cluster_service_account-metric_writer[0]",
+                    "mode": "managed",
+                    "type": "google_project_iam_member",
+                    "name": "cluster_service_account-metric_writer",
+                    "index": 0,
+                    "provider_name": "registry.terraform.io/hashicorp/google",
+                    "schema_version": 0,
+                    "values": {
+                        "condition": [],
+                        "project": "cnp-standalone-eghe",
+                        "role": "roles/monitoring.metricWriter"
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_project_iam_member.cluster_service_account-monitoring_viewer[0]",
+                    "mode": "managed",
+                    "type": "google_project_iam_member",
+                    "name": "cluster_service_account-monitoring_viewer",
+                    "index": 0,
+                    "provider_name": "registry.terraform.io/hashicorp/google",
+                    "schema_version": 0,
+                    "values": {
+                        "condition": [],
+                        "project": "cnp-standalone-eghe",
+                        "role": "roles/monitoring.viewer"
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_project_iam_member.cluster_service_account-resourceMetadata-writer[0]",
+                    "mode": "managed",
+                    "type": "google_project_iam_member",
+                    "name": "cluster_service_account-resourceMetadata-writer",
+                    "index": 0,
+                    "provider_name": "registry.terraform.io/hashicorp/google",
+                    "schema_version": 0,
+                    "values": {
+                        "condition": [],
+                        "project": "cnp-standalone-eghe",
+                        "role": "roles/stackdriver.resourceMetadata.writer"
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.google_service_account.cluster_service_account[0]",
+                    "mode": "managed",
+                    "type": "google_service_account",
+                    "name": "cluster_service_account",
+                    "index": 0,
+                    "provider_name": "registry.terraform.io/hashicorp/google",
+                    "schema_version": 0,
+                    "values": {
+                        "description": null,
+                        "display_name": "Terraform-managed service account for cluster cluster01",
+                        "project": "cnp-standalone-eghe",
+                        "timeouts": null
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.random_shuffle.available_zones",
+                    "mode": "managed",
+                    "type": "random_shuffle",
+                    "name": "available_zones",
+                    "provider_name": "registry.terraform.io/hashicorp/random",
+                    "schema_version": 0,
+                    "values": {
+                        "input": [
+                            "europe-west4-a",
+                            "europe-west4-b",
+                            "europe-west4-c"
+                        ],
+                        "keepers": null,
+                        "result_count": 3,
+                        "seed": null
+                    }
+                },
+                {
+                    "address": "module.cpe_stack_instance.module.gcp_gke.module.gke.random_string.cluster_service_account_suffix",
+                    "mode": "managed",
+                    "type": "random_string",
+                    "name": "cluster_service_account_suffix",
+                    "provider_name": "registry.terraform.io/hashicorp/random",
+                    "schema_version": 1,
+                    "values": {
+                        "keepers": null,
+                        "length": 4,
+                        "lower": true,
+                        "min_lower": 0,
+                        "min_numeric": 0,
+                        "min_special": 0,
+                        "min_upper": 0,
+                        "number": true,
+                        "override_special": null,
+                        "special": false,
+                        "upper": false
+                    }
+                }
+            ]
+        }
+    },
+    "resource_changes": [
+        {
+            "address": "docker_container.nginx",
+            "mode": "managed",
+            "type": "docker_container",
+            "name": "nginx",
+            "provider_name": "docker",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "attach": false,
+                    "capabilities": [],
+                    "cpu_set": null,
+                    "cpu_shares": null,
+                    "destroy_grace_seconds": null,
+                    "devices": [],
+                    "dns": null,
+                    "dns_opts": null,
+                    "dns_search": null,
+                    "domainname": null,
+                    "group_add": null,
+                    "healthcheck": [],
+                    "host": [],
+                    "links": null,
+                    "log_driver": "json-file",
+                    "log_opts": null,
+                    "logs": false,
+                    "max_retry_count": null,
+                    "memory": null,
+                    "memory_swap": null,
+                    "mounts": [],
+                    "must_run": true,
+                    "name": "tutorial",
+                    "network_alias": null,
+                    "network_mode": null,
+                    "networks": null,
+                    "networks_advanced": [],
+                    "pid_mode": null,
+                    "ports": [
+                        {
+                            "external": 8000,
+                            "internal": 80,
+                            "ip": "0.0.0.0",
+                            "protocol": "tcp"
+                        }
+                    ],
+                    "privileged": null,
+                    "publish_all_ports": null,
+                    "read_only": false,
+                    "restart": "no",
+                    "rm": false,
+                    "start": true,
+                    "sysctls": null,
+                    "tmpfs": null,
+                    "ulimit": [],
+                    "upload": [],
+                    "user": null,
+                    "userns_mode": null,
+                    "volumes": [],
+                    "working_dir": null
+                },
+                "after_unknown": {
+                    "bridge": true,
+                    "capabilities": [],
+                    "command": true,
+                    "container_logs": true,
+                    "devices": [],
+                    "entrypoint": true,
+                    "env": true,
+                    "exit_code": true,
+                    "gateway": true,
+                    "healthcheck": [],
+                    "host": [],
+                    "hostname": true,
+                    "id": true,
+                    "image": true,
+                    "ip_address": true,
+                    "ip_prefix_length": true,
+                    "ipc_mode": true,
+                    "labels": true,
+                    "mounts": [],
+                    "network_data": true,
+                    "networks_advanced": [],
+                    "ports": [
+                        {}
+                    ],
+                    "shm_size": true,
+                    "ulimit": [],
+                    "upload": [],
+                    "volumes": []
+                }
+            }
+        },
+        {
+            "address": "docker_image.nginx",
+            "mode": "managed",
+            "type": "docker_image",
+            "name": "nginx",
+            "provider_name": "docker",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "keep_locally": false,
+                    "name": "nginx:latest",
+                    "pull_trigger": null,
+                    "pull_triggers": null
+                },
+                "after_unknown": {
+                    "id": true,
+                    "latest": true
+                }
+            }
+        }
+    ],
+    "configuration": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "docker_container.nginx",
+                    "mode": "managed",
+                    "type": "docker_container",
+                    "name": "nginx",
+                    "provider_config_key": "docker",
+                    "expressions": {
+                        "image": {
+                            "references": [
+                                "docker_image.nginx"
+                            ]
+                        },
+                        "name": {
+                            "constant_value": "tutorial"
+                        },
+                        "ports": [
+                            {
+                                "external": {
+                                    "constant_value": 8000
+                                },
+                                "internal": {
+                                    "constant_value": 80
+                                }
+                            }
+                        ]
+                    },
+                    "schema_version": 2
+                },
+                {
+                    "address": "docker_image.nginx",
+                    "mode": "managed",
+                    "type": "docker_image",
+                    "name": "nginx",
+                    "provider_config_key": "docker",
+                    "expressions": {
+                        "keep_locally": {
+                            "constant_value": false
+                        },
+                        "name": {
+                            "constant_value": "nginx:latest"
+                        }
+                    },
+                    "schema_version": 0
+                }
+            ]
+        }
+    }
+}
