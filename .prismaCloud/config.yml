@@ -1,4 +1,4 @@
-template_type: CFT
+template_type: k8s
 template_version: 0.12
 
 tags:
