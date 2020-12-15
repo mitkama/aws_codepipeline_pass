@@ -1,0 +1,166 @@
+{
+    "meta": {
+        "matchedPoliciesSummary": {
+            "high": 5,
+            "medium": 5,
+            "low": 1
+        },
+        "errorDetails": []
+    },
+    "data": [
+        {
+            "id": "e2a2f39e-1de6-4b14-802a-d6e6852490a6",
+            "attributes": {
+                "severity": "high",
+                "name": "Avoid running privileged containers",
+                "rule": "$.spec.template.spec.containers[*].securityContext.privileged any true",
+                "desc": "Ensure containers' privileged is false.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "e2a2f39e-1de6-4b14-802a-d6e6852490a6",
+                "docUrl": "http://prisma.fyi/p105"
+            }
+        },
+        {
+            "id": "cca6bb6a-4e05-47a1-acaa-29f198799aa2",
+            "attributes": {
+                "severity": "high",
+                "name": "All capabilities should be dropped",
+                "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and not $.spec.template.spec.containers[*].securityContext.capabilities.drop[*] contains ALL",
+                "desc": "Ensure that all capabilities are dropped.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "cca6bb6a-4e05-47a1-acaa-29f198799aa2",
+                "docUrl": "http://prisma.fyi/p93"
+            }
+        },
+        {
+            "id": "bd8a401a-9453-451c-907b-d891081dd47f",
+            "attributes": {
+                "severity": "high",
+                "name": "Do not run containers as root",
+                "rule": "$.spec.template.spec.securityContext.runAsUser any equal 0",
+                "desc": "Ensure running containers as non-root.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "bd8a401a-9453-451c-907b-d891081dd47f",
+                "docUrl": "http://prisma.fyi/p68"
+            }
+        },
+        {
+            "id": "2e22737c-a5b8-4808-8a8b-d99fc7e99505",
+            "attributes": {
+                "severity": "high",
+                "name": "Containers must be run as non-root",
+                "rule": "$.spec.template.spec.containers[*].securityContext.runAsNonRoot equals false",
+                "desc": "Ensure containers run as non-root.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "2e22737c-a5b8-4808-8a8b-d99fc7e99505",
+                "docUrl": "http://prisma.fyi/p50"
+            }
+        },
+        {
+            "id": "d68b24d5-1c5f-4fd7-b01a-91bfd05094b0",
+            "attributes": {
+                "severity": "high",
+                "name": "Do not share host network with containers",
+                "rule": "$.spec.template.spec.hostNetwork is true",
+                "desc": "Ensure not sharing host network with containers.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "d68b24d5-1c5f-4fd7-b01a-91bfd05094b0",
+                "docUrl": "http://prisma.fyi/p36"
+            }
+        },
+        {
+            "id": "b6a2652d-14b1-44fe-8e3c-5bcabec4d8f3",
+            "attributes": {
+                "severity": "medium",
+                "name": "Overly permissive capabilities in container security context",
+                "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.add exists and $.spec.template.spec.containers[*].securityContext.capabilities.add[*] is member of (FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE)",
+                "desc": "Container security context has one of following overly permissive capabilities - FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "b6a2652d-14b1-44fe-8e3c-5bcabec4d8f3",
+                "docUrl": "http://prisma.fyi/p101"
+            }
+        },
+        {
+            "id": "03b12ba0-63fc-4157-a71b-16f70cd7fed2",
+            "attributes": {
+                "severity": "medium",
+                "name": "Ensure containers are immutable",
+                "rule": "$.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem exists and $.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem any false",
+                "desc": "Ensure containers are immutable.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "03b12ba0-63fc-4157-a71b-16f70cd7fed2",
+                "docUrl": "http://prisma.fyi/p53"
+            }
+        },
+        {
+            "id": "d8c5a7db-285e-4472-ac6e-78ae93fc64d8",
+            "attributes": {
+                "severity": "medium",
+                "name": "do not allow volume claims to be read-write by many nodes",
+                "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes contains ReadWriteMany",
+                "desc": "Ensure not allowing volume claims to be read-write by many nodes.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "d8c5a7db-285e-4472-ac6e-78ae93fc64d8",
+                "docUrl": "http://prisma.fyi/p90"
+            }
+        },
+        {
+            "id": "234cd606-e335-4977-989d-cc79266646e8",
+            "attributes": {
+                "severity": "medium",
+                "name": "Do not allow sharing host IPC namespace",
+                "rule": "$.spec.template.spec.hostIPC is true",
+                "desc": "Ensure not allowing sharing host IPC namespace.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "234cd606-e335-4977-989d-cc79266646e8",
+                "docUrl": "http://prisma.fyi/p2"
+            }
+        },
+        {
+            "id": "9a80fab0-687b-4fcb-9217-7ae1fb81340d",
+            "attributes": {
+                "severity": "medium",
+                "name": "Do not allow sharing host PID namespace",
+                "rule": "$.spec.template.spec.hostPID is true",
+                "desc": "Ensure not allowing sharing host PID namespace.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "9a80fab0-687b-4fcb-9217-7ae1fb81340d",
+                "docUrl": "http://prisma.fyi/p70"
+            }
+        },
+        {
+            "id": "26245f07-4924-4bac-b4ed-fa00f7d1ee90",
+            "attributes": {
+                "severity": "low",
+                "name": "Do not allow volume claims to be read by many nodes",
+                "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes contains ReadOnlyMany",
+                "desc": "Ensure not allowing volume claims to be read by many nodes.",
+                "files": [
+                    "attached"
+                ],
+                "policyId": "26245f07-4924-4bac-b4ed-fa00f7d1ee90",
+                "docUrl": "http://prisma.fyi/p74"
+            }
+        }
+    ]
+}

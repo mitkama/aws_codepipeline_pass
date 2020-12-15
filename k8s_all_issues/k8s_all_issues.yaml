@@ -1,0 +1,57 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: yml-nginx-deployment
+spec:
+  replicas: 3
+  strategy: Recreate
+  selector:
+    matchLabels:
+      deploy: example
+  template:
+    metadata:
+      labels:
+        deploy: example
+    spec:
+      # $.spec.template.spec.securityContext.runAsUser any equal 0
+      securityContext:
+        runAsUser: 0
+      containers:
+        - name: nginx
+          image: nginx:1.7.9
+          securityContext:
+            # $.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem exists and $.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem any false
+            readOnlyRootFilesystem: false
+            # $.spec.template.spec.containers[*].securityContext.privileged any true
+            privileged: true
+            # $.spec.template.spec.containers[*].securityContext.runAsNonRoot equals false
+            runAsNonRoot: false
+            capabilities:
+              drop:
+                # $.spec.template.spec.containers[*].securityContext.capabilities.drop exists and not $.spec.templates.spec.containers[*].securityContext.capabilities.drop[*] contains ALL
+                - SYS_ADMIN
+              add:
+                # $.spec.template.spec.containers[*].securityContext.capabilities exists and $.spec.template.spec.containers[*].securityContext.capabilities.add[*] is member of (FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE)
+                - NET_BIND_SERVICE
+        - name: nginx
+          image: nginx:1.8.0
+          securityContext:
+            # $.spec.template.spec.containers[*].securityContext.runAsUser < 9999
+            runAsUser: 9998
+      # $.spec.template.spec.hostIPC is true
+      hostIPC: true
+      # $.spec.template.spec.hostPID is true
+      hostPID: true
+      # $.spec.template.spec.hostNetwork is true
+      hostNetwork: true
+  volumeClaimTemplates:
+    - spec:
+        accessModes:
+          - ReadOnlyMany
+          # $.spec.volumeClaimTemplates[*].spec.accessModes contains ReadWriteMany
+          - ReadWriteMany
+
+
+
+# Modified [k8s_all_issues.yaml] on [2020-11-14 18:58:33.322364]
+# Modified [k8s_all_issues.yaml] on [2020-11-14 19:02:57.678347]
