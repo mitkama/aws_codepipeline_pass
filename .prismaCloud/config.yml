@@ -1,5 +1,7 @@
-template_type: k8s
+template_type: TF 
 template_version: 0.12
+
+
 
 tags:
 - Org:Engineering
