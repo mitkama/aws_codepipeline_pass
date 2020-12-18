@@ -6,6 +6,10 @@ variables:
  key1: 1
  key2: 2
 
+variable_files:
+ - ./filepath/filename1
+ - ./filepath/filename2
+
 tags:
 - Org:Engineering
 - Team:Shift_LeftQAsprint25
