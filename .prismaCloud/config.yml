@@ -1,7 +1,10 @@
 template_type: TF 
 template_version: 0.12
 
-
+template_parameters:
+variables:
+ key1: 1
+ key2: 2
 
 tags:
 - Org:Engineering
