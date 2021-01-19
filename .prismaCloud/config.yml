@@ -1,6 +1,12 @@
 template_type: CFT 
 template_version: 0.12
 
+template_parameters:
+  variables:
+   access : system
+   scanPlanFilesOnly: True
+  variable_files:
+   - ./tf11/tf11_tests-2.jx 
 
 tags:
 - Org:Engineering
