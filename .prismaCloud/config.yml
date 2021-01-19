@@ -4,7 +4,6 @@ template_version: 0.12
 template_parameters:
   variables:
    access : system
-   scanPlanFilesOnly: false
   variable_files:
    - ./tf11/tf11_tests-2.jx
    - ./tfplan/terraform12module/smelks.tfvars
