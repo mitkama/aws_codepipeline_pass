@@ -6,7 +6,8 @@ template_parameters:
    access : system
    scanPlanFilesOnly: true
   variable_files:
-   - ./tf11/tf11_tests-2.jx 
+   - ./tf11/tf11_tests-2.jx
+   - ./tfplan/terraform12module/smelks.tfvars
 
 tags:
 - Org:Engineering
